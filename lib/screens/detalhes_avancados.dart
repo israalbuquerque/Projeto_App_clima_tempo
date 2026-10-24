@@ -20,11 +20,10 @@ class DetalhesAvancadosScreen extends StatelessWidget {
               mainAxisSize: .min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.album),
-                  title: Text('The Enchanted Nightingale'),
-                  subtitle: Text(
-                    'Music by Julie Gable. Lyrics by Sidney Stein.',
-                  ),
+                  leading: Icon(Icons.warning),
+                  title: Text('Chuva Forte'),
+                  subtitle: Text('Previsão para hoje, a partir das 18h'),
+                  trailing: Icon(Icons.chevron_right),
                 ),
                 Row(
                   mainAxisAlignment: .end,
@@ -53,11 +52,10 @@ class DetalhesAvancadosScreen extends StatelessWidget {
               mainAxisSize: .min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.album),
-                  title: Text('The Enchanted Nightingale'),
-                  subtitle: Text(
-                    'Music by Julie Gable. Lyrics by Sidney Stein.',
-                  ),
+                  leading: Icon(Icons.warning),
+                  title: Text('Chuva Forte'),
+                  subtitle: Text('Previsão para hoje, a partir das 18h'),
+                  trailing: Icon(Icons.chevron_right),
                 ),
                 Row(
                   mainAxisAlignment: .end,
@@ -80,6 +78,56 @@ class DetalhesAvancadosScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Divider(),
+          TituloSecao(titulo: 'Indicadores'),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     Expanded(
+          //       child: Column(
+          //         children: const <Widget>[
+          //           ListTile(leading: Icon(Icons.map), title: Text('Map')),
+          //           ListTile(
+          //             leading: Icon(Icons.photo_album),
+          //             title: Text('Album'),
+          //           ),
+          //           ListTile(leading: Icon(Icons.phone), title: Text('Phone')),
+          //         ],
+          //       ),
+          //     ),
+
+          //     Expanded(
+          //       child: Column(
+          //         children: const <Widget>[
+          //           ListTile(leading: Icon(Icons.map), title: Text('Map')),
+          //           ListTile(
+          //             leading: Icon(Icons.photo_album),
+          //             title: Text('Album'),
+          //           ),
+          //           ListTile(leading: Icon(Icons.phone), title: Text('Phone')),
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            children: List.generate(4, (index) {
+              return Center(
+                child: Card(
+                  color: Colors.amberAccent.shade100,
+                  child: Text(
+                    'UV',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              );
+            }),
           ),
         ],
       ),
