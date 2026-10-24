@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_tempo/screens/clima_atual.dart';
+import 'package:projeto_tempo/screens/detalhes_avancados.dart';
 import 'package:projeto_tempo/screens/previsao_semana.dart';
 import 'package:projeto_tempo/widgets/titulo_secao.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      home: HomeScreen(),
     );
   }
 }
@@ -44,6 +46,14 @@ class HomeScreen extends StatelessWidget {
               MaterialPageRoute(builder: (_) => PrevisaoSemanaScreen()),
             ),
             child: Text('Previsão da Semana'),
+          ),
+
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => DetalhesAvancadosScreen()),
+            ),
+            child: Text('Detalhes avançados'),
           ),
         ],
       ),
