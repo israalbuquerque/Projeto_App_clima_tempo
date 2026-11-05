@@ -62,7 +62,9 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:projeto_tempo/models/clima.dart';
 import 'package:projeto_tempo/screens/detalhes_avancados.dart';
+import 'package:projeto_tempo/screens/ver_clima.dart';
 import 'package:projeto_tempo/widgets/titulo_secao.dart';
 
 void main() {
@@ -91,6 +93,7 @@ class CidadeItem {
   final String minMax;
   final String umiVentChu;
   final IconData icone;
+  final Widget destino;
 
   CidadeItem({
     required this.nome,
@@ -98,6 +101,7 @@ class CidadeItem {
     required this.minMax,
     required this.umiVentChu,
     required this.icone,
+    required this.destino,
   });
 }
 
@@ -107,26 +111,51 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<CidadeItem> outrasCidades = [
+      // CidadeItem(
+      //   nome: 'São Bernardo do Campo',
+      //   tempAtual: '24°C',
+      //   minMax: 'Min: 17°C | Max: 26°C',
+      //   umiVentChu: 'Umi: 70% | Vent: 10km/h | Chuva: 10%',
+      //   icone: Icons.wb_sunny,
+      // ),
+      // CidadeItem(
+      //   nome: 'São Paulo',
+      //   tempAtual: '22°C',
+      //   minMax: 'Min: 16°C | Max: 25°C',
+      //   umiVentChu: 'Umi: 75% | Vent: 14km/h | Chuva: 40%',
+      //   icone: Icons.umbrella,
+      // ),
+      // CidadeItem(
+      //   nome: 'Mauá',
+      //   tempAtual: '23°C',
+      //   minMax: 'Min: 15°C | Max: 27°C',
+      //   umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
+      //   icone: Icons.cloud,
+      // ),
+
+      // CidadeItem(
+      //   nome: 'Clima do rio de janeiro',
+      //   tempAtual: '23°C',
+      //   minMax: 'Min: 15°C | Max: 27°C',
+      //   umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
+      //   icone: Icons.cloud,
+      // ),
       CidadeItem(
-        nome: 'São Bernardo do Campo',
-        tempAtual: '24°C',
-        minMax: 'Min: 17°C | Max: 26°C',
-        umiVentChu: 'Umi: 70% | Vent: 10km/h | Chuva: 10%',
-        icone: Icons.wb_sunny,
-      ),
-      CidadeItem(
-        nome: 'São Paulo',
-        tempAtual: '22°C',
-        minMax: 'Min: 16°C | Max: 25°C',
-        umiVentChu: 'Umi: 75% | Vent: 14km/h | Chuva: 40%',
-        icone: Icons.umbrella,
-      ),
-      CidadeItem(
-        nome: 'Mauá',
+        nome: 'Clima do rio morto',
         tempAtual: '23°C',
         minMax: 'Min: 15°C | Max: 27°C',
         umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
         icone: Icons.cloud,
+        destino: DetalhesAvancadosScreen(
+          clima: Clima(
+            cidade: 'São bernardo',
+            temperaturaAtual: 500,
+            temperaturaMaxima: 2001,
+            temperaturaMinima: 1,
+            umidade: 12,
+            chancechuva: 10,
+          ),
+        ),
       ),
     ];
 
@@ -143,7 +172,16 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const DetalhesAvancadosScreen(),
+                  builder: (_) => const DetalhesAvancadosScreen(
+                    clima: Clima(
+                      cidade: 'Santo André',
+                      temperaturaAtual: 26,
+                      temperaturaMinima: 18,
+                      temperaturaMaxima: 29,
+                      umidade: 65,
+                      chancechuva: 10,
+                    ),
+                  ),
                 ),
               );
             },
@@ -241,9 +279,7 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const DetalhesAvancadosScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => cidade.destino),
                     );
                   },
                 ),

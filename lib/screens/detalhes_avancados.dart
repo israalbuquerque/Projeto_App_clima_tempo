@@ -322,11 +322,13 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:projeto_tempo/models/clima.dart';
 import 'package:projeto_tempo/screens/previsao_semana.dart';
 import 'package:projeto_tempo/widgets/titulo_secao.dart';
 
 class DetalhesAvancadosScreen extends StatelessWidget {
-  const DetalhesAvancadosScreen({super.key});
+  final Clima clima;
+  const DetalhesAvancadosScreen({super.key, required this.clima});
 
   @override
   Widget build(BuildContext context) {
@@ -367,11 +369,11 @@ class DetalhesAvancadosScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 16,
                   left: 16,
                   child: Text(
-                    '26°C - Santo André',
+                    clima.cidade,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
