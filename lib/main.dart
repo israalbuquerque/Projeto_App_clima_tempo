@@ -64,7 +64,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_tempo/models/clima.dart';
 import 'package:projeto_tempo/screens/detalhes_avancados.dart';
-import 'package:projeto_tempo/screens/ver_clima.dart';
 import 'package:projeto_tempo/widgets/titulo_secao.dart';
 
 void main() {
@@ -89,20 +88,42 @@ class MyApp extends StatelessWidget {
 
 class CidadeItem {
   final String nome;
-  final String tempAtual;
-  final String minMax;
-  final String umiVentChu;
+  final double tempAtual;
+  final double tempMinima;
+  final double tempMaxima;
+  final int umidade;
+  final double chanceChuva;
+  final double ventoVelocidade;
   final IconData icone;
-  final Widget destino;
 
   CidadeItem({
     required this.nome,
     required this.tempAtual,
-    required this.minMax,
-    required this.umiVentChu,
+    required this.tempMinima,
+    required this.tempMaxima,
+    required this.umidade,
+    required this.chanceChuva,
+    required this.ventoVelocidade,
     required this.icone,
-    required this.destino,
   });
+
+  String get minMax =>
+      'Min: ${tempMinima.toInt()}°C | Max: ${tempMaxima.toInt()}°C';
+  String get umiVentChu =>
+      'Umi: $umidade% | Vent: ${ventoVelocidade.toInt()}km/h | Chuva: ${chanceChuva.toInt()}%';
+  String get tempAtualFormatada => '${tempAtual.toInt()}°C';
+
+  // Gera o destino dinamicamente injetando o objeto Clima com os dados desta cidade
+  Widget get destino => DetalhesAvancadosScreen(
+    clima: Clima(
+      cidade: nome,
+      temperaturaAtual: tempAtual,
+      temperaturaMinima: tempMinima,
+      temperaturaMaxima: tempMaxima,
+      umidade: umidade,
+      chancechuva: chanceChuva,
+    ),
+  );
 }
 
 class HomeScreen extends StatelessWidget {
@@ -110,52 +131,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Lista de Outras Cidades contendo São Bernardo do Campo, São Paulo e Mauá com seus parâmetros
     final List<CidadeItem> outrasCidades = [
-      // CidadeItem(
-      //   nome: 'São Bernardo do Campo',
-      //   tempAtual: '24°C',
-      //   minMax: 'Min: 17°C | Max: 26°C',
-      //   umiVentChu: 'Umi: 70% | Vent: 10km/h | Chuva: 10%',
-      //   icone: Icons.wb_sunny,
-      // ),
-      // CidadeItem(
-      //   nome: 'São Paulo',
-      //   tempAtual: '22°C',
-      //   minMax: 'Min: 16°C | Max: 25°C',
-      //   umiVentChu: 'Umi: 75% | Vent: 14km/h | Chuva: 40%',
-      //   icone: Icons.umbrella,
-      // ),
-      // CidadeItem(
-      //   nome: 'Mauá',
-      //   tempAtual: '23°C',
-      //   minMax: 'Min: 15°C | Max: 27°C',
-      //   umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
-      //   icone: Icons.cloud,
-      // ),
-
-      // CidadeItem(
-      //   nome: 'Clima do rio de janeiro',
-      //   tempAtual: '23°C',
-      //   minMax: 'Min: 15°C | Max: 27°C',
-      //   umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
-      //   icone: Icons.cloud,
-      // ),
       CidadeItem(
-        nome: 'Clima do rio morto',
-        tempAtual: '23°C',
-        minMax: 'Min: 15°C | Max: 27°C',
-        umiVentChu: 'Umi: 68% | Vent: 9km/h | Chuva: 20%',
+        nome: 'São Bernardo do Campo',
+        tempAtual: 24,
+        tempMinima: 17,
+        tempMaxima: 26,
+        umidade: 70,
+        chanceChuva: 10,
+        ventoVelocidade: 10,
+        icone: Icons.wb_sunny,
+      ),
+      CidadeItem(
+        nome: 'São Paulo',
+        tempAtual: 22,
+        tempMinima: 16,
+        tempMaxima: 25,
+        umidade: 75,
+        chanceChuva: 40,
+        ventoVelocidade: 14,
+        icone: Icons.umbrella,
+      ),
+      CidadeItem(
+        nome: 'Mauá',
+        tempAtual: 23,
+        tempMinima: 15,
+        tempMaxima: 27,
+        umidade: 68,
+        chanceChuva: 20,
+        ventoVelocidade: 9,
         icone: Icons.cloud,
-        destino: DetalhesAvancadosScreen(
-          clima: Clima(
-            cidade: 'São bernardo',
-            temperaturaAtual: 500,
-            temperaturaMaxima: 2001,
-            temperaturaMinima: 1,
-            umidade: 12,
-            chancechuva: 10,
-          ),
-        ),
       ),
     ];
 
@@ -164,7 +170,7 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // Cidade Principal (Destaque)
+          // Cidade Principal (Santo André em destaque)
           const TituloSecao(titulo: 'Cidade Principal'),
           const SizedBox(height: 8),
           GestureDetector(
@@ -179,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                       temperaturaMinima: 18,
                       temperaturaMaxima: 29,
                       umidade: 65,
-                      chancechuva: 10,
+                      chancechuva: 30,
                     ),
                   ),
                 ),
@@ -247,7 +253,7 @@ class HomeScreen extends StatelessWidget {
           const TituloSecao(titulo: 'Outras Cidades'),
           const SizedBox(height: 8),
 
-          // Lista de outras cidades em formato de Cards
+          // Renderiza dinamicamente os cards de São Bernardo do Campo, São Paulo e Mauá
           ...outrasCidades.map(
             (cidade) => Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
@@ -270,7 +276,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   trailing: Text(
-                    cidade.tempAtual,
+                    cidade.tempAtualFormatada,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
