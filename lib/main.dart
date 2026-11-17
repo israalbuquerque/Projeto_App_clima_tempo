@@ -300,6 +300,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_tempo/models/clima.dart';
 import 'package:projeto_tempo/screens/detalhes_avancados.dart';
+import 'package:projeto_tempo/screens/login.dart';
 import 'package:projeto_tempo/widgets/titulo_secao.dart';
 
 void main() {
@@ -317,7 +318,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -453,7 +454,22 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Clima App - Home'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Clima App - Home'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginScreen()),
+              );
+            },
+          ),
+        ],
+      ),
+
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
