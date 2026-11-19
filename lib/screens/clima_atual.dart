@@ -315,8 +315,39 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          TextField(
+            decoration: InputDecoration(
+              hintText: 'Pesquisar...',
+              filled: true,
+              fillColor: Colors.grey[100],
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 14,
+              ),
+
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide.none,
+              ),
+              suffixIcon: Padding(
+                padding: const EdgeInsetsGeometry.all(4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    print('Pesquisando');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Icon(Icons.search, size: 20),
+                ),
+              ),
+            ),
+          ),
           // Cidade Principal (Destaque)
-          const TituloSecao(titulo: 'Cidade Principal'),
+          TituloSecao(titulo: 'Cidade Principal'),
           const SizedBox(height: 8),
           GestureDetector(
             onTap: () {
